@@ -1,78 +1,56 @@
 window.VALENTINE_CONFIG = {
-  "partnerName": "Your Special Someone",
-  "nickname": "Babe",
-  "dateOptions": [
+  partnerName: "Яна",
+  nickname: "Любимая",
+
+  dateOptions: [
     {
-      "title": "Movie Night",
-      "emoji": "🎬",
-      "subtitle": "Same movie • video call",
-      "note": "We pick a movie + call"
+      title: "Свидание-рулетка",
+      emoji: "🎲",
+      subtitle: "Случайный сценарий вечера",
+      note: "Немного интриги и сюрпризов"
     },
     {
-      "title": "Game Night",
-      "emoji": "🎮",
-      "subtitle": "Play together",
-      "note": "You choose the game"
+      title: "Quiz «Про нас»",
+      emoji: "📝",
+      subtitle: "Проверим, как хорошо мы знаем друг друга",
+      note: "7 милых вопросов"
     },
     {
-      "title": "Late Night Talk",
-      "emoji": "☎️",
-      "subtitle": "Just you and me",
-      "note": "No distractions"
+      title: "Письмо в будущее",
+      emoji: "✉️",
+      subtitle: "Открыть через месяц",
+      note: "10 строк о нас"
     },
     {
-      "title": "Video Call + Food",
-      "emoji": "🍱",
-      "subtitle": "Eat together on call",
-      "note": "Same vibe"
+      title: "Созвон только ты и я",
+      emoji: "☎️",
+      subtitle: "Без отвлечений",
+      note: "Просто время друг для друга"
+    },
+    {
+      title: "Фильм вместе",
+      emoji: "🎬",
+      subtitle: "Стартуем одновременно",
+      note: "Комментируем по ходу"
     }
   ],
-  "foodOptions": [
-    {
-      "title": "Sushi",
-      "emoji": "🍣",
-      "subtitle": "A classic"
-    },
-    {
-      "title": "Pizza",
-      "emoji": "🍕",
-      "subtitle": "Easy win"
-    },
-    {
-      "title": "Burgers",
-      "emoji": "🍔",
-      "subtitle": "Comfort"
-    },
-    {
-      "title": "Ramen",
-      "emoji": "🍜",
-      "subtitle": "Warm vibes"
-    }
+
+  moodOptions: [
+    { title: "Романтика", emoji: "💞", subtitle: "Нежно и тепло" },
+    { title: "Смех", emoji: "😄", subtitle: "Мемы и шутки" },
+    { title: "Спокойствие", emoji: "🌙", subtitle: "Уютный вечер" },
+    { title: "Флирт", emoji: "🔥", subtitle: "Чуть-чуть дерзости" }
   ],
-  "dessertOptions": [
-    {
-      "title": "Ice Cream",
-      "emoji": "🍦",
-      "subtitle": "Always works"
-    },
-    {
-      "title": "Chocolate",
-      "emoji": "🍫",
-      "subtitle": "Romantic"
-    },
-    {
-      "title": "Waffles",
-      "emoji": "🧇",
-      "subtitle": "Crispy + sweet"
-    },
-    {
-      "title": "Cake",
-      "emoji": "🎂",
-      "subtitle": "Celebration"
-    }
+
+  surpriseOptions: [
+    { title: "Комплимент", emoji: "💌", subtitle: "Что я в тебе люблю" },
+    { title: "Случайное задание", emoji: "🎲", subtitle: "Мини-челлендж" },
+    { title: "Фото из галереи", emoji: "📸", subtitle: "История к нему" },
+    { title: "Честный вопрос", emoji: "🫶", subtitle: "Без ухода от ответа" }
   ],
-  "finalButtonText": "Thank you for being my Valentine 💗",
-  "shareButtonText": "Copy our plan 💌 (send it to me)",
-  "shareCopiedText": "Copied ✅ Now paste it to me 💌",
-  "shareMessageFooter": "Now you have to show up 😌"
+
+  finalButtonText: "Яна, спасибо, что ты у меня есть 💗",
+  shareButtonText: "Скопировать наш план 💌",
+  shareCopiedText: "Скопировано ✅",
+  shareMessageFooter: "Теперь это наше официальное свидание 😌"
 };
