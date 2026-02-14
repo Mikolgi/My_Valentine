@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food 🍽️</title>
+    <title>Настроение 💞</title>
     <link rel="stylesheet" href="css/theme.css" />
     <script src="config.js"></script>
   </head>
@@ -11,49 +11,55 @@
   <body>
     <main class="wrap">
       <section class="card" style="padding:18px 16px 18px;">
-        <div class="title">Choose our food 🍽️</div>
-        <p class="subtitle">Pick what you’d crave most.</p>
+        <div class="title">Выбери настроение вечера 💞</div>
+        <p class="subtitle">Какой вайб сегодня?</p>
 
         <div class="grid" id="grid"></div>
 
-        <div style="margin-top:14px;"><span class="pill" id="picked">Chosen: tap an option ✨</span></div>
+        <div style="margin-top:14px;">
+          <span class="pill" id="picked">Выбрано: нажми на вариант ✨</span>
+        </div>
 
         <div style="margin-top:14px;">
-          <button class="btn btnPrimary btnFull" id="next" disabled>Continue 🍰</button>
+          <button class="btn btnPrimary btnFull" id="next" disabled>Дальше 🎁</button>
         </div>
       </section>
     </main>
 
     <script>
       const cfg = window.VALENTINE_CONFIG || {};
-      const grid = document.getElementById('grid');
-      const options = Array.isArray(cfg.foodOptions) && cfg.foodOptions.length ? cfg.foodOptions : [];
+      const grid = document.getElementById("grid");
+      const options = Array.isArray(cfg.moodOptions) && cfg.moodOptions.length ? cfg.moodOptions : [];
 
-      grid.innerHTML = options.map(o => `
-        <div class="option" data-value="${o.title} ${o.emoji}">
-          <div class="optionTitle">${o.title} ${o.emoji}</div>
-          <p class="optionText">${o.subtitle || ''}</p>
+      grid.innerHTML = options
+        .map(
+          (o) => `
+        <div class="option" data-value="${(o.title || "")} ${(o.emoji || "")}">
+          <div class="optionTitle">${o.title || ""} ${o.emoji || ""}</div>
+          <p class="optionText">${o.subtitle || ""}</p>
         </div>
-      `).join('');
+      `
+        )
+        .join("");
 
-      const items = document.querySelectorAll('.option');
-      const picked = document.getElementById('picked');
-      const next = document.getElementById('next');
-      let choice = '';
+      const items = document.querySelectorAll(".option");
+      const picked = document.getElementById("picked");
+      const next = document.getElementById("next");
+      let choice = "";
 
-      items.forEach(i => {
-        i.addEventListener('click', () => {
-          items.forEach(x => x.classList.remove('active'));
-          i.classList.add('active');
+      items.forEach((i) => {
+        i.addEventListener("click", () => {
+          items.forEach((x) => x.classList.remove("active"));
+          i.classList.add("active");
           choice = i.dataset.value;
-          picked.textContent = 'Chosen: ' + choice;
+          picked.textContent = "Выбрано: " + choice;
           next.disabled = false;
         });
       });
 
-      next.addEventListener('click', () => {
-        localStorage.setItem('food_choice', choice);
-        location.href = 'dessert.html';
+      next.addEventListener("click", () => {
+        localStorage.setItem("mood_choice", choice);
+        location.href = "dessert.html";
       });
     </script>
   </body>
