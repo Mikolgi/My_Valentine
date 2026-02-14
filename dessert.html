@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dessert 🍰</title>
+    <title>Сюрприз 🎁</title>
     <link rel="stylesheet" href="css/theme.css" />
     <script src="config.js"></script>
   </head>
@@ -11,49 +11,55 @@
   <body>
     <main class="wrap">
       <section class="card" style="padding:18px 16px 18px;">
-        <div class="title">Now dessert 🍰</div>
-        <p class="subtitle">Pick the sweet ending.</p>
+        <div class="title">А теперь сюрприз 🎁</div>
+        <p class="subtitle">Выбери маленькую изюминку вечера.</p>
 
         <div class="grid" id="grid"></div>
 
-        <div style="margin-top:14px;"><span class="pill" id="picked">Chosen: tap an option ✨</span></div>
+        <div style="margin-top:14px;">
+          <span class="pill" id="picked">Выбрано: нажми на вариант ✨</span>
+        </div>
 
         <div style="margin-top:14px;">
-          <button class="btn btnPrimary btnFull" id="next" disabled>Finish 💖</button>
+          <button class="btn btnPrimary btnFull" id="next" disabled>Завершить 💖</button>
         </div>
       </section>
     </main>
 
     <script>
       const cfg = window.VALENTINE_CONFIG || {};
-      const grid = document.getElementById('grid');
-      const options = Array.isArray(cfg.dessertOptions) && cfg.dessertOptions.length ? cfg.dessertOptions : [];
+      const grid = document.getElementById("grid");
+      const options = Array.isArray(cfg.surpriseOptions) && cfg.surpriseOptions.length ? cfg.surpriseOptions : [];
 
-      grid.innerHTML = options.map(o => `
-        <div class="option" data-value="${o.title} ${o.emoji}">
-          <div class="optionTitle">${o.title} ${o.emoji}</div>
-          <p class="optionText">${o.subtitle || ''}</p>
+      grid.innerHTML = options
+        .map(
+          (o) => `
+        <div class="option" data-value="${(o.title || "")} ${(o.emoji || "")}">
+          <div class="optionTitle">${o.title || ""} ${o.emoji || ""}</div>
+          <p class="optionText">${o.subtitle || ""}</p>
         </div>
-      `).join('');
+      `
+        )
+        .join("");
 
-      const items = document.querySelectorAll('.option');
-      const picked = document.getElementById('picked');
-      const next = document.getElementById('next');
-      let choice = '';
+      const items = document.querySelectorAll(".option");
+      const picked = document.getElementById("picked");
+      const next = document.getElementById("next");
+      let choice = "";
 
-      items.forEach(i => {
-        i.addEventListener('click', () => {
-          items.forEach(x => x.classList.remove('active'));
-          i.classList.add('active');
+      items.forEach((i) => {
+        i.addEventListener("click", () => {
+          items.forEach((x) => x.classList.remove("active"));
+          i.classList.add("active");
           choice = i.dataset.value;
-          picked.textContent = 'Chosen: ' + choice;
+          picked.textContent = "Выбрано: " + choice;
           next.disabled = false;
         });
       });
 
-      next.addEventListener('click', () => {
-        localStorage.setItem('dessert_choice', choice);
-        location.href = 'lastpage.html';
+      next.addEventListener("click", () => {
+        localStorage.setItem("surprise_choice", choice);
+        location.href = "lastpage.html";
       });
     </script>
   </body>
