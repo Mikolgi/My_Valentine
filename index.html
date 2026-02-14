@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <title>Be My Valentine</title>
+    <title>С 14 февраля, Яна ❤️</title>
+
     <link rel="stylesheet" href="css/theme.css" />
     <script src="config.js"></script>
   </head>
@@ -12,17 +13,15 @@
     <main class="wrap">
       <section class="card" style="padding:18px 16px 22px;">
         <div class="title">
-          <span class="pink" id="partnerName">Your Special Someone</span>, will you be my Valentine? 💘
-        </div>
-        <p class="subtitle">Mobile-first • iPhone friendly • super cute 🤍</p>
-
-        <div class="row">
-          <button class="btn btnPrimary" id="yesBtn" onclick="location.href='thankyou.html'">Yes 💖</button>
-          <button class="btn btnGhost" id="noButton">No 🙈</button>
+          <span class="pink" id="partnerName">Яна</span>, будешь моей валентинкой? 💘
         </div>
 
-        <img src="cat.gif" alt="cute cat" class="imgHero" />
-        <div class="tip">Tip: try pressing “No” 😄</div>
+        <div class="row" style="margin-top: 14px;">
+          <button class="btn btnPrimary" id="yesBtn" onclick="location.href='thankyou.html'">Да 💖</button>
+          <button class="btn btnGhost" id="noButton">Нет 🙈</button>
+        </div>
+
+        <img src="cat.gif" alt="милый котик" class="imgHero" />
       </section>
     </main>
 
@@ -40,7 +39,7 @@
       );
 
       const cfg = window.VALENTINE_CONFIG || {};
-      const partner = cfg.partnerName || "Your Special Someone";
+      const partner = cfg.partnerName || "Яна";
       document.getElementById("partnerName").textContent = partner;
 
       const noButton = document.getElementById("noButton");
