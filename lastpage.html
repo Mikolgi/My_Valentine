@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For You 💐</title>
+    <title>Для тебя 💐</title>
     <link rel="stylesheet" href="css/theme.css" />
     <script src="config.js"></script>
     <style>
@@ -28,7 +28,7 @@
       .recap h2{ margin:0 0 12px; font-size:18px; font-weight:1000; }
       .line{ display:flex; gap:10px; align-items:baseline; padding:9px 0; border-bottom:1px solid rgba(255,95,158,.10); }
       .line:last-child{ border-bottom:none; }
-      .label{ width:108px; font-size:12px; color:rgba(47,34,34,.55); text-transform:uppercase; letter-spacing:.6px; flex:0 0 auto; }
+      .label{ width:118px; font-size:12px; color:rgba(47,34,34,.55); text-transform:uppercase; letter-spacing:.6px; flex:0 0 auto; }
       .val{ font-size:15px; font-weight:900; color:rgba(47,34,34,.88); }
       .loveNote{ margin-top:12px; font-size:14px; color:rgba(47,34,34,.70); }
     </style>
@@ -39,24 +39,26 @@
 
     <main class="wrap content">
       <section class="card" style="padding:18px 16px 22px;">
-        <div class="title">For you, always 💐</div>
-        <p class="subtitle">Even miles apart, you’re still my favorite person. 🤍</p>
+        <div class="title">Для тебя — всегда 💐</div>
+        <p class="subtitle">Даже на расстоянии ты всё равно мой самый любимый человек 🤍</p>
 
         <section class="recap">
-          <h2>Our plan ✨</h2>
-          <div class="line"><div class="label">Online date</div><div class="val" id="r1">—</div></div>
-          <div class="line"><div class="label">Day</div><div class="val" id="r2">—</div></div>
-          <div class="line"><div class="label">Food</div><div class="val" id="r3">—</div></div>
-          <div class="line"><div class="label">Dessert</div><div class="val" id="r4">—</div></div>
-          <div class="loveNote">Tip: tap “Copy our plan” and send it to the person who made this 💖</div>
+          <h2>Наш план ✨</h2>
+          <div class="line"><div class="label">Свидание</div><div class="val" id="r1">—</div></div>
+          <div class="line"><div class="label">Сценарий</div><div class="val" id="rNote">—</div></div>
+          <div class="line"><div class="label">День</div><div class="val" id="r2">—</div></div>
+          <div class="line"><div class="label">Настроение</div><div class="val" id="r3">—</div></div>
+          <div class="line"><div class="label">Сюрприз</div><div class="val" id="r4">—</div></div>
+
+          <div class="loveNote">Нажми “Скопировать план” и отправь мне 💖</div>
         </section>
 
         <div style="margin-top:16px;">
-          <button class="btn btnPrimary btnFull" id="shareBtn">Copy our plan 💌 (send it to me)</button>
+          <button class="btn btnPrimary btnFull" id="shareBtn">Скопировать наш план 💌</button>
         </div>
 
         <div style="margin-top:10px;">
-          <button class="btn btnGhost btnFull" id="finalBtn" onclick="location.href='index.html'">Thank you for being my Valentine 💗</button>
+          <button class="btn btnGhost btnFull" id="finalBtn" onclick="location.href='index.html'">Спасибо, что ты моя валентинка 💗</button>
         </div>
       </section>
     </main>
@@ -64,52 +66,68 @@
     <script>
       const cfg = window.VALENTINE_CONFIG || {};
 
-      const online = localStorage.getItem('online_choice') || '—';
-      const when = localStorage.getItem('online_when') || 'Any day';
-      const food = localStorage.getItem('food_choice') || '—';
-      const dessert = localStorage.getItem('dessert_choice') || localStorage.getItem('dessertChoice') || '—';
+      // Онлайн-свидание + рулетка/заметка
+      const online = localStorage.getItem("online_choice") || "—";
+      const note = localStorage.getItem("online_note") || "";
 
-      document.getElementById('r1').textContent = online;
-      document.getElementById('r2').textContent = when;
-      document.getElementById('r3').textContent = food;
-      document.getElementById('r4').textContent = dessert;
+      // День
+      const when = localStorage.getItem("online_when") || "В любой день";
 
-      const shareBtn = document.getElementById('shareBtn');
-      const finalBtn = document.getElementById('finalBtn');
+      // Новые ключи (и на всякий — старые для совместимости)
+      const mood =
+        localStorage.getItem("mood_choice") ||
+        localStorage.getItem("food_choice") ||
+        "—";
+
+      const surprise =
+        localStorage.getItem("surprise_choice") ||
+        localStorage.getItem("dessert_choice") ||
+        localStorage.getItem("dessertChoice") ||
+        "—";
+
+      document.getElementById("r1").textContent = online;
+      document.getElementById("rNote").textContent = note ? note : "—";
+      document.getElementById("r2").textContent = when;
+      document.getElementById("r3").textContent = mood;
+      document.getElementById("r4").textContent = surprise;
+
+      const shareBtn = document.getElementById("shareBtn");
+      const finalBtn = document.getElementById("finalBtn");
 
       shareBtn.textContent = cfg.shareButtonText || shareBtn.textContent;
       finalBtn.textContent = cfg.finalButtonText || finalBtn.textContent;
 
-      shareBtn.addEventListener('click', async () => {
+      shareBtn.addEventListener("click", async () => {
         const msg =
-`Valentine plan 💖
-Online date: ${online}
-Day: ${when}
-Food: ${food}
-Dessert: ${dessert}
+`План на наше свидание 💖
+Свидание: ${online}
+Сценарий: ${note || "—"}
+День: ${when}
+Настроение: ${mood}
+Сюрприз: ${surprise}
 
-${cfg.shareMessageFooter || ''}`.trim();
+${cfg.shareMessageFooter || ""}`.trim();
 
         try {
           await navigator.clipboard.writeText(msg);
-          shareBtn.textContent = cfg.shareCopiedText || 'Copied ✅';
-          setTimeout(() => (shareBtn.textContent = cfg.shareButtonText || 'Copy our plan 💌'), 2200);
+          shareBtn.textContent = cfg.shareCopiedText || "Скопировано ✅";
+          setTimeout(() => (shareBtn.textContent = cfg.shareButtonText || "Скопировать наш план 💌"), 2200);
         } catch {
-          prompt('Copy this and send it:', msg);
+          prompt("Скопируй и отправь мне:", msg);
         }
       });
 
-      // Extra flowers
-      const icons = ['🌸','🌷','💐','🌺','✨','💖','🪻','🌼'];
-      for(let i=0;i<30;i++){
-        const h = document.createElement('div');
-        h.className = 'floatHeart';
-        h.textContent = icons[Math.floor(Math.random()*icons.length)];
-        h.style.left = (Math.random()*100) + 'vw';
-        h.style.fontSize = (14 + Math.random()*22) + 'px';
-        h.style.animationDelay = (Math.random()*1.6) + 's';
+      // Красивые “цветочки”
+      const icons = ["🌸","🌷","💐","🌺","✨","💖","🪻","🌼"];
+      for (let i = 0; i < 30; i++) {
+        const h = document.createElement("div");
+        h.className = "floatHeart";
+        h.textContent = icons[Math.floor(Math.random() * icons.length)];
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = 14 + Math.random() * 22 + "px";
+        h.style.animationDelay = Math.random() * 1.6 + "s";
         document.body.appendChild(h);
-        setTimeout(()=>h.remove(), 5000);
+        setTimeout(() => h.remove(), 5000);
       }
     </script>
   </body>
