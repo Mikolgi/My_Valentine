@@ -33,3 +33,90 @@
 
         <div style="margin-top:14px;">
           <button class="btn btnPrimary btnFull" id="continueBtn" disabled>Дальше 💌</button>
+          <div class="tip" style="margin-top:10px;">Если день не выбран — значит “когда ты свободна” 😄</div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const cfg = window.VALENTINE_CONFIG || {};
+      document.getElementById("nick").textContent = cfg.nickname || "Любимая";
+
+      const cardsWrap = document.getElementById("choices");
+      const options = Array.isArray(cfg.dateOptions) && cfg.dateOptions.length ? cfg.dateOptions : [];
+
+      // простой рандом для "рулетки"
+      const roulettePlans = Array.isArray(cfg.roulettePlans) && cfg.roulettePlans.length
+        ? cfg.roulettePlans
+        : [
+            "💬 3 вопроса + 1 комплимент: отвечаем честно по очереди",
+            "🎬 20 минут фильма + обсуждение: что понравилось и почему",
+            "🎨 Рисуем друг друга 5 минут и показываем результат 😄",
+            "📸 3 фото из галереи: расскажи историю к каждому",
+            "🫶 10 минут: говорим друг другу только хорошее",
+            "📝 Мини-quiz: по 5 вопросов друг другу"
+          ];
+
+      function pickRandom(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      cardsWrap.innerHTML = options
+        .map(
+          (o) => `
+        <div class="option"
+             data-title="${(o.title || "").replace(/"/g, "&quot;")}"
+             data-choice="${(o.title || "")} ${(o.emoji || "")}"
+             data-note="${((o.note || "")).replace(/"/g, "&quot;")}">
+          <div class="optionTitle">${o.title || ""} ${o.emoji || ""}</div>
+          <p class="optionText">${o.subtitle || ""}</p>
+        </div>
+      `
+        )
+        .join("");
+
+      const cards = document.querySelectorAll(".option");
+      const pickedPill = document.getElementById("pickedPill");
+      const continueBtn = document.getElementById("continueBtn");
+      const day = document.getElementById("day");
+
+      let choice = "";
+      let note = "";
+
+      // min date = today
+      const t = new Date();
+      const yyyy = t.getFullYear();
+      const mm = String(t.getMonth() + 1).padStart(2, "0");
+      const dd = String(t.getDate()).padStart(2, "0");
+      day.min = `${yyyy}-${mm}-${dd}`;
+
+      cards.forEach((c) => {
+        c.addEventListener("click", () => {
+          cards.forEach((x) => x.classList.remove("active"));
+          c.classList.add("active");
+
+          choice = c.dataset.choice;
+          const title = (c.dataset.title || "").toLowerCase();
+
+          if (title.includes("рулетка")) {
+            note = pickRandom(roulettePlans);
+            pickedPill.textContent = "Выбрано: " + choice + " • " + note;
+          } else {
+            note = c.dataset.note || "";
+            pickedPill.textContent = "Выбрано: " + choice;
+          }
+
+          continueBtn.disabled = false;
+        });
+      });
+
+      continueBtn.addEventListener("click", () => {
+        const whenDay = day.value ? day.value : "В любой день";
+        localStorage.setItem("online_choice", choice);
+        localStorage.setItem("online_note", note);
+        localStorage.setItem("online_when", whenDay);
+        location.href = "food.html";
+      });
+    </script>
+  </body>
+</html>
